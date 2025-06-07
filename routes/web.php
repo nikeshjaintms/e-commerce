@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PhotoController;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,14 @@ Route::get('login/{provider}/callback/', 'Auth\LoginController@Callback')->name(
 Route::post('/resize-image', [PhotoController::class, 'resize']);
 
 Route::get('/','FrontendController@home')->name('home');
+
+Route::get('/test-users', function () {
+    // Fetch all users from MongoDB
+    $users = User::all();
+    
+    // Return as JSON
+    return response()->json($users);
+});
 
 // Frontend Routes
 Route::get('/home', 'FrontendController@index');
