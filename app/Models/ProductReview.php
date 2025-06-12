@@ -6,6 +6,8 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class ProductReview extends Model
 {
+    protected $connection = 'mongodb';
+    protected $collection = 'product_reviews';
     protected $fillable=['user_id','product_id','rate','review','status'];
 
     public function user_info(){

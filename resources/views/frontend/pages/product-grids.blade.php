@@ -1,3 +1,4 @@
+@php use App\Models\ProductReview; @endphp
 @extends('frontend.layouts.master')
 
 @section('title','Ecommerce Laravel || PRODUCT PAGE')
@@ -67,7 +68,8 @@
                                         <div class="price-filter">
                                             <div class="price-filter-inner">
                                                 @php
-                                                    $max=DB::table('products')->max('price');
+                                                    //$max=DB::table('products')->max('price');
+                                                      $max=Product::max('price');
                                                     // dd($max);
                                                 @endphp
                                                 <div id="slider-range" data-min="0" data-max="{{$max}}"></div>
@@ -115,7 +117,8 @@
                                     <h3 class="title">Brands</h3>
                                     <ul class="categor-list">
                                         @php
-                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
+                                            //$brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
+                                         $brands=Brand::orderBy('title','ASC')->where('status','active')->get();
                                         @endphp
                                         @foreach($brands as $brand)
                                             <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
@@ -261,8 +264,10 @@
                                                         <i class="yellow fa fa-star"></i>
                                                         <i class="fa fa-star"></i> --}}
                                                         @php
-                                                            $rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
-                                                            $rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
+                                                            //$rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
+                                                            //$rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
+                                                         $rate=ProductReview::where('product_id',$product->id)->avg('rate');
+                                                            $rate_count=ProductReview::where('product_id',$product->id)->count();
                                                         @endphp
                                                         @for($i=1; $i<=5; $i++)
                                                             @if($rate>=$i)

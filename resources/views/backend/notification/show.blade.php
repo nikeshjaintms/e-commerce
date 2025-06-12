@@ -1,4 +1,4 @@
-<div id="notifications">
+ <div id="notifications">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
@@ -14,7 +14,10 @@
         <h6 class="dropdown-header">
           Notifications Center
         </h6>
-        @foreach(Auth::user()->unreadNotifications as $notification)
+        
+        {{-- @foreach(Auth::user()->unreadNotifications as $notification) --}}
+        @foreach(Auth::user()->notifications()->whereNull('read_at')->get() as $notification)
+
     <a class="dropdown-item d-flex align-items-center" target="_blank" href="{{route('admin.notification',$notification->id)}}">
                 <div class="mr-3">
                     <div class="icon-circle bg-primary">
@@ -36,3 +39,5 @@
         <a class="dropdown-item text-center small text-gray-500" href="{{route('all.notification')}}">Show All Notifications</a>
       </div>
 </div>
+
+

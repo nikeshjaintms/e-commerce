@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+// use App\Models\Notification as CustomNotification;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Notification::useDatabaseNotificationModel(CustomNotification::class);
         Schema::defaultStringLength(191);
     }
 }

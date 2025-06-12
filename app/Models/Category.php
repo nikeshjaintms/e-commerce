@@ -6,6 +6,8 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $connection = 'mongodb';
+    protected $collection = 'categories';
     protected $fillable=['title','slug','summary','photo','status','is_parent','parent_id','added_by'];
 
     public function parent_info(){
