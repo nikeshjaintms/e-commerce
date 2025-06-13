@@ -325,7 +325,7 @@
                                             <p class="product-des">{!!($cart['summary']) !!}</p>
                                         </td>
                                         <td class="price" data-title="Price">
-                                            <span class="unit_price" data-price="{{ $cart['amount'] }}"> ${{ number_format($cart['amount'], 2) }}</span>
+                                            <span class="unit_price" data-price="{{ $cart['price'] }}"> ${{ number_format($cart['price'], 2) }}</span>
                                         </td>
                                         <td class="qty" data-title="Qty">
                                             <div class="input-group">

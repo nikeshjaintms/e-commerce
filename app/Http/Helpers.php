@@ -111,11 +111,16 @@ class Helper{
             if($user_id=="") $user_id=auth()->user()->id;
             // return Cart::where('user_id',$user_id)->where('order_id',null)->sum('amount');
             return Cart::where('user_id',$user_id)->where('order_id',null)->sum('price');
+
         }
         else{
             return 0;
         }
     }
+
+
+
+
     // Wishlist Count
     public static function wishlistCount($user_id=''){
 

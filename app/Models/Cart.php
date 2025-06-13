@@ -6,6 +6,9 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Cart extends Model
 {
+    protected $connection = 'mongodb';
+    protected $collection = 'carts';
+
     protected $fillable=['user_id','product_id','order_id','quantity','amount','price','status'];
 
     // public function product(){
