@@ -1,3 +1,4 @@
+@php use App\Models\Settings; @endphp
 
 	<!-- Start Footer Area -->
 	<footer class="footer">
