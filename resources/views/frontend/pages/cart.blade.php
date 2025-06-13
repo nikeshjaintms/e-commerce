@@ -492,17 +492,20 @@
             $('.btn-number').click(function(e){
                 e.preventDefault();
 
-                const type = $(this).data('type');
-                const input = $("input[name='" + $(this).data('field') + "']");
-                let currentVal = parseInt(input.val());
+                // const type = $(this).data('type');
+                // const input = $("input[name='" + $(this).data('field') + "']");
+                // let currentVal = parseInt(input.val());
+                //
+                // if (!isNaN(currentVal)) {
+                //     if (type === 'minus' && currentVal > 1) {
+                //         input.val(currentVal - 1).change();
+                //     } else if (type === 'plus') {
+                //         input.val(currentVal + 1).change();
+                //     }
+                // }
 
-                if (!isNaN(currentVal)) {
-                    if (type === 'minus' && currentVal > 1) {
-                        input.val(currentVal - 1).change();
-                    } else if (type === 'plus') {
-                        input.val(currentVal + 1).change();
-                    }
-                }
+
+
             });
 
             $('.input-number').on('input change', function(){

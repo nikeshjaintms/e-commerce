@@ -10,7 +10,9 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="{{asset('backend/img/avatar.png')}}" alt="#"></a>
+								<a href="{{route('home')}}">
+                                    <img src="{{asset('backend/img/avatar.png')}}" alt="#">
+                                </a>
 							</div>
 							@php
 								//$settings=DB::table('settings')->get();
@@ -76,14 +78,14 @@
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
-								<p>© {{date('Y')}} Developed By Prajwal Rai  -  All Rights Reserved.</p>
+								<p>© {{date('Y')}} Developed By Dhruvi Shah  -  All Rights Reserved.</p>
 							</div>
 						</div>
-						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="{{asset('backend/img/payments.png')}}" alt="#">
-							</div>
-						</div>
+{{--						<div class="col-lg-6 col-12">--}}
+{{--							<div class="right">--}}
+{{--								<img src="{{asset('backend/img/payments.png')}}" alt="#">--}}
+{{--							</div>--}}
+{{--						</div>--}}
 					</div>
 				</div>
 			</div>

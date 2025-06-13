@@ -1,4 +1,4 @@
-@php use App\Models\Brand;use App\Models\ProductReview; @endphp
+@php use App\Models\Brand;use App\Models\Product;use App\Models\ProductReview; @endphp
 @extends('frontend.layouts.master')
 
 @section('title','Ecommerce Laravel || PRODUCT PAGE')
