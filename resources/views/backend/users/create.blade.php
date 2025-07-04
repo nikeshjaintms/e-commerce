@@ -1,3 +1,4 @@
+@php use App\User; @endphp
 @extends('backend.layouts.master')
 
 @section('main-content')

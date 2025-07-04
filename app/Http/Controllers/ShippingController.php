@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Shipping;
 use App\Models\Coupon;
-
 class ShippingController extends Controller
 {
     /**
