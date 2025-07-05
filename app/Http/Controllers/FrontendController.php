@@ -51,8 +51,14 @@ class FrontendController extends Controller
     }
 
     public function productDetail($slug){
+
         $product_detail= Product::getProductBySlug($slug);
         // dd($product_detail);
+        if ($product_detail) {
+            // Increment the view count
+            $product_detail->increment('view_count');
+        }
+
         return view('frontend.pages.product_detail')->with('product_detail',$product_detail);
     }
 

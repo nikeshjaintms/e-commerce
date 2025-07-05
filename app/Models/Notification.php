@@ -11,6 +11,9 @@ class Notification extends Model
     protected $collection = 'notifications';
     protected $fillable=['data','type','notifiable','read_at'];
 
+    protected $primaryKey = '_id';
+    public $incrementing = false;
+    
     public function markAsRead()
     {
         $this->read_at = Carbon::now();

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Notification as ModelsNotification;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\User;
 use PDF;
@@ -13,6 +15,7 @@ use Notification;
 use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 class OrderController extends Controller
 {
@@ -144,10 +147,10 @@ class OrderController extends Controller
         $users=User::where('role','admin')->first();
         $details=[
             'title'=>'New Order Received',
-            'actionURL'=>route('order.show',$order->id),
+            'actionURL'=>route('user.order.show',$order->id),
             'fas'=>'fa-file-alt'
         ];
-        Notification::send($users, new StatusNotification($details));
+        // FacadesNotification::send($users, new StatusNotification($details));
         if(request('payment_method')=='paypal'){
             return redirect()->route('payment')->with(['id'=>$order->id]);
         }
@@ -155,6 +158,13 @@ class OrderController extends Controller
             session()->forget('cart');
             session()->forget('coupon');
         }
+
+        $cartItems = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get();
+
+        foreach ($cartItems as $item) {
+            Product::where('id', $item->product_id)->increment('order_count', (int) $item->quantity);
+        }
+
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
         // dd($users);
