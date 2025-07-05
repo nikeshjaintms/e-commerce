@@ -11,6 +11,10 @@ class PostCategory extends Model
         return $this->hasMany('App\Models\Post','post_cat_id','id')->where('status','active');
     }
 
+    public function posts(){
+        return $this->hasMany('App\Models\Post','post_cat_id','id')->where('status','active');
+    }
+
     public static function getBlogByCategory($slug){
         return PostCategory::with('post')->where('slug',$slug)->first();
     }
