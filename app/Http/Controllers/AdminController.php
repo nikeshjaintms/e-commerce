@@ -9,22 +9,60 @@ use App\Rules\MatchOldPassword;
 use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
+
 class AdminController extends Controller
 {
-    public function index(){
-        $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
-        ->where('created_at', '>', Carbon::today()->subDay(6))
-        ->groupBy('day_name','day')
-        ->orderBy('day')
-        ->get();
-     $array[] = ['Name', 'Number'];
-     foreach($data as $key => $value)
-     {
-       $array[++$key] = [$value->day_name, $value->count];
-     }
-    //  return $data;
-     return view('backend.index')->with('users', json_encode($array));
+    public function index()
+{
+    // MongoDB aggregation to group users created in the last 7 days by day of the week
+    $data = User::raw(function($collection) {
+        return $collection->aggregate([
+            [
+                '$match' => [
+                    'created_at' => [
+                        '$gt' => new \MongoDB\BSON\UTCDateTime(Carbon::today()->subDays(6)->startOfDay()->getTimestamp() * 1000)
+                    ]
+                ]
+            ],
+            [
+                '$group' => [
+                    '_id' => [
+                        'day' => ['$dayOfMonth' => '$created_at'],
+                        'day_name' => ['$dayOfWeek' => '$created_at']
+                    ],
+                    'count' => ['$sum' => 1]
+                ]
+            ],
+            [
+                '$sort' => ['_id.day' => 1]
+            ]
+        ]);
+    });
+
+    // Map MongoDB day_of_week (1=Sunday, ..., 7=Saturday) to day names
+    $dayNames = [
+        1 => 'Sunday',
+        2 => 'Monday',
+        3 => 'Tuesday',
+        4 => 'Wednesday',
+        5 => 'Thursday',
+        6 => 'Friday',
+        7 => 'Saturday',
+    ];
+
+    // Prepare data array for chart or frontend
+    $array[] = ['Name', 'Number'];
+    foreach ($data as $item) {
+        $dayNum = $item->_id->day_name;
+        $array[] = [
+            $dayNames[$dayNum] ?? 'Unknown',
+            $item->count
+        ];
     }
+
+    return view('backend.index')->with('users', json_encode($array));
+}
+
 
     public function profile(){
         $profile=Auth()->user();

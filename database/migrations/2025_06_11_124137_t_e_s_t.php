@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //DB::statement("ALTER TABLE orders MODIFY payment_method ENUM('cod', 'paypal', 'cardpay') NOT NULL DEFAULT 'cod'");
+        //
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        //DB::statement("ALTER TABLE orders MODIFY payment_method ENUM('cod', 'paypal') NOT NULL DEFAULT 'cod'");
+        //
     }
 };
