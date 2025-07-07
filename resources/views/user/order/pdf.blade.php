@@ -1,3 +1,4 @@
+@php use App\Models\Product; @endphp
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,8 +120,9 @@
       </thead>
       <tbody>
       @foreach($order->cart_info as $cart)
-      @php 
-        $product=DB::table('products')->select('title')->where('id',$cart->product_id)->get();
+      @php
+        //$product=DB::table('products')->select('title')->where('id',$cart->product_id)->get();
+       $product=Product::select('title')->where('id',$cart->product_id)->get();
       @endphp
         <tr>
           <td><span>

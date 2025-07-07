@@ -9,55 +9,57 @@ use App\Rules\MatchOldPassword;
 use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
+use MongoDB\BSON\UTCDateTime;
 
 class AdminController extends Controller
 {
-    public function index()
+    // public function index(){
+    //     $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+    //     ->where('created_at', '>', Carbon::today()->subDay(6))
+    //     ->groupBy('day_name','day')
+    //     ->orderBy('day')
+    //     ->get();
+    //  $array[] = ['Name', 'Number'];
+    //  foreach($data as $key => $value)
+    //  {
+    //    $array[++$key] = [$value->day_name, $value->count];
+    //  }
+    // //  return $data;
+    //  return view('backend.index')->with('users', json_encode($array));
+    // }
+   
+
+public function index()
 {
-    // MongoDB aggregation to group users created in the last 7 days by day of the week
-    $data = User::raw(function($collection) {
+    $startDate = Carbon::today()->subDays(6);
+
+    $data = User::raw(function($collection) use ($startDate) {
         return $collection->aggregate([
-            [
-                '$match' => [
-                    'created_at' => [
-                        '$gt' => new \MongoDB\BSON\UTCDateTime(Carbon::today()->subDays(6)->startOfDay()->getTimestamp() * 1000)
-                    ]
-                ]
-            ],
-            [
-                '$group' => [
-                    '_id' => [
-                        'day' => ['$dayOfMonth' => '$created_at'],
-                        'day_name' => ['$dayOfWeek' => '$created_at']
-                    ],
-                    'count' => ['$sum' => 1]
-                ]
-            ],
-            [
-                '$sort' => ['_id.day' => 1]
-            ]
+            ['$match' => [
+                'created_at' => ['$gte' => new UTCDateTime($startDate->getTimestamp() * 1000)]
+            ]],
+            ['$project' => [
+                'day' => ['$dayOfMonth' => '$created_at'],
+                'day_name' => ['$dayOfWeek' => '$created_at']
+            ]],
+            ['$group' => [
+                '_id' => [
+                    'day' => '$day',
+                    'day_name' => '$day_name'
+                ],
+                'count' => ['$sum' => 1]
+            ]],
+            ['$sort' => ['_id.day' => 1]]
         ]);
     });
 
-    // Map MongoDB day_of_week (1=Sunday, ..., 7=Saturday) to day names
-    $dayNames = [
-        1 => 'Sunday',
-        2 => 'Monday',
-        3 => 'Tuesday',
-        4 => 'Wednesday',
-        5 => 'Thursday',
-        6 => 'Friday',
-        7 => 'Saturday',
-    ];
+    // Map numeric day_name (1=Sunday, 7=Saturday) to names
+    $dayNames = [1 => 'Sunday', 2 => 'Monday', 3 => 'Tuesday', 4 => 'Wednesday', 5 => 'Thursday', 6 => 'Friday', 7 => 'Saturday'];
 
-    // Prepare data array for chart or frontend
     $array[] = ['Name', 'Number'];
     foreach ($data as $item) {
-        $dayNum = $item->_id->day_name;
-        $array[] = [
-            $dayNames[$dayNum] ?? 'Unknown',
-            $item->count
-        ];
+        $dayName = $dayNames[$item->_id->day_name];
+        $array[] = [$dayName, $item->count];
     }
 
     return view('backend.index')->with('users', json_encode($array));
@@ -131,21 +133,55 @@ class AdminController extends Controller
     }
 
     // Pie chart
-    public function userPieChart(Request $request){
-        // dd($request->all());
-        $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
-        ->where('created_at', '>', Carbon::today()->subDay(6))
-        ->groupBy('day_name','day')
-        ->orderBy('day')
-        ->get();
-     $array[] = ['Name', 'Number'];
-     foreach($data as $key => $value)
-     {
-       $array[++$key] = [$value->day_name, $value->count];
-     }
-    //  return $data;
-     return view('backend.index')->with('course', json_encode($array));
+    // public function userPieChart(Request $request){
+    //     // dd($request->all());
+    //     $data = User::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+    //     ->where('created_at', '>', Carbon::today()->subDay(6))
+    //     ->groupBy('day_name','day')
+    //     ->orderBy('day')
+    //     ->get();
+    //  $array[] = ['Name', 'Number'];
+    //  foreach($data as $key => $value)
+    //  {
+    //    $array[++$key] = [$value->day_name, $value->count];
+    //  }
+    // //  return $data;
+    //  return view('backend.index')->with('course', json_encode($array));
+    // }
+
+
+public function userPieChart(Request $request)
+{
+    $startDate = Carbon::today()->subDays(6);
+    $startMongoDate = new UTCDateTime($startDate->startOfDay()->timestamp * 1000);
+
+    $data = User::raw(function ($collection) use ($startMongoDate) {
+        return $collection->aggregate([
+            ['$match' => ['created_at' => ['$gte' => $startMongoDate]]],
+            [
+                '$group' => [
+                    '_id' => [
+                        'day' => ['$dayOfMonth' => '$created_at'],
+                        'dayOfWeek' => ['$dayOfWeek' => '$created_at'],
+                    ],
+                    'count' => ['$sum' => 1],
+                ]
+            ],
+            ['$sort' => ['_id.day' => 1]],
+        ]);
+    });
+
+    // Map MongoDB day numbers to day names (1=Sunday, 7=Saturday)
+    $days = ['','Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    $array[] = ['Name', 'Number'];
+    foreach ($data as $key => $item) {
+        $dayName = $days[$item->_id['dayOfWeek']];
+        $array[] = [$dayName, $item->count];
     }
+
+    return view('backend.index')->with('course', json_encode($array));
+}
 
     // public function activity(){
     //     return Activity::all();

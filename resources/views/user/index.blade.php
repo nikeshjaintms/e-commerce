@@ -1,3 +1,4 @@
+@php use App\Models\Order; @endphp
 @extends('user.layouts.master')
 
 @section('main-content')
@@ -56,7 +57,7 @@
                   <div class="col-auto">
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countActiveOrder()}}</div>
                   </div>
-                  
+
                 </div>
               </div>
               <div class="col-auto">
@@ -89,7 +90,8 @@
 
     <div class="row">
       @php
-          $orders=DB::table('orders')->where('user_id',auth()->user()->id)->paginate(10);
+          //$orders=DB::table('orders')->where('user_id',auth()->user()->id)->paginate(10);
+       $orders=Order::where('user_id',auth()->user()->id)->paginate(10);
       @endphp
       <!-- Order -->
       <div class="col-xl-12 col-lg-12">
@@ -106,13 +108,13 @@
               <th>Action</th>
             </tr>
           </thead>
-          
+
           <tbody>
           @php
             $counter = 1;
         @endphp
             @if(count($orders)>0)
-              @foreach($orders as $order)   
+              @foreach($orders as $order)
                 <tr>
                     <td>{{$counter}}</td>
                     <td>{{$order->order_number}}</td>
@@ -134,7 +136,7 @@
                     <td>
                         <a href="{{route('user.order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
                         <form method="POST" action="{{route('user.order.delete',[$order->id])}}">
-                          @csrf 
+                          @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>

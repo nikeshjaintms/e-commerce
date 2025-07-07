@@ -1,3 +1,4 @@
+@php use App\User; @endphp
 @extends('backend.layouts.master')
 
 @section('main-content')
@@ -6,7 +7,7 @@
     <h5 class="card-header">Edit User</h5>
     <div class="card-body">
       <form method="post" action="{{route('users.update',$user->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Name</label>
@@ -47,8 +48,9 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        @php 
-        $roles=DB::table('users')->select('role')->where('id',$user->id)->get();
+        @php
+        //$roles=DB::table('users')->select('role')->where('id',$user->id)->get();
+         $roles=User::select('role')->where('id',$user->id)->get();
         // dd($roles);
         @endphp
         <div class="form-group">

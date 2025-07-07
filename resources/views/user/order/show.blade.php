@@ -1,3 +1,4 @@
+@php use App\Models\Shipping; @endphp
 @extends('user.layouts.master')
 
 @section('title','Order Detail')
@@ -79,7 +80,8 @@
                     </tr>
                     <tr>
                       @php
-                          $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
+                          //$shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
+                       $shipping_charge=Shipping::where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Shipping Charge</td>
                         <td> :${{$order->shipping->price}}</td>

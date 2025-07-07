@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Settings;
 use Illuminate\Database\Seeder;
 
 class SettingTableSeeder extends Seeder
@@ -22,6 +23,7 @@ class SettingTableSeeder extends Seeder
             'email'=>"codeastro.com",
             'phone'=>"1234567777",
         );
-        DB::table('settings')->insert($data);
+        //DB::table('settings')->insert($data);
+       Settings::insert($data);
     }
 }

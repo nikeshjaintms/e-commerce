@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Support\Str;
+
 class StatusNotification extends Notification
 {
     use Queueable;
@@ -72,7 +74,7 @@ class StatusNotification extends Notification
     }
 
 
-    
+
     /**
      * Get the broadcastable representation of the notification.
      *
@@ -91,5 +93,5 @@ class StatusNotification extends Notification
     }
 
 
-    
+
 }

@@ -1,3 +1,4 @@
+@php use App\Models\Shipping; @endphp
 @extends('backend.layouts.master')
 
 @section('main-content')
@@ -29,10 +30,11 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($orders as $order)  
+            @foreach($orders as $order)
             @php
-                $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
-            @endphp 
+                //$shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
+             $shipping_charge=Shipping::where('id',$order->shipping_id)->pluck('price');
+            @endphp
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{$order->order_number}}</td>
@@ -56,12 +58,12 @@
                         <a href="{{route('order.show',$order->id)}}" class="btn btn-warning btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="view" data-placement="bottom"><i class="fas fa-eye"></i></a>
                         <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="{{route('order.destroy',[$order->id])}}">
-                          @csrf 
+                          @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
-                </tr>  
+                </tr>
             @endforeach
           </tbody>
         </table>
@@ -94,7 +96,7 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-      
+
       $('#order-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -107,7 +109,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>

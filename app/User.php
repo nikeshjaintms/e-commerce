@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
+use MongoDB\Laravel\Auth\User as Authenticatable;
+
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -15,6 +17,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+     use Notifiable;
+
+       protected $connection = 'mongodb';
+    protected $collection = 'users';
     protected $fillable = [
         'name', 'email', 'password','role','photo','status','provider','provider_id',
     ];
@@ -37,7 +43,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+     public function notifications()
+    {
+        return $this->morphMany(\App\Models\Notification::class, 'notifiable')->orderBy('created_at', 'desc');
+    }
+
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
+
+    public function unreadNotifications()
+{
+    return $this->morphMany(\App\Models\Notification::class, 'notifiable')
+                ->whereNull('read_at')
+                ->orderBy('created_at', 'desc');
+}
+
 }

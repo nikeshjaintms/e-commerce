@@ -325,7 +325,7 @@
                                             <p class="product-des">{!!($cart['summary']) !!}</p>
                                         </td>
                                         <td class="price" data-title="Price">
-                                            <span class="unit_price" data-price="{{ $cart['amount'] }}"> ${{ number_format($cart['amount'], 2) }}</span>
+                                            <span class="unit_price" data-price="{{ $cart['price'] }}"> ${{ number_format($cart['price'], 2) }}</span>
                                         </td>
                                         <td class="qty" data-title="Qty">
                                             <div class="input-group">
@@ -492,17 +492,20 @@
             $('.btn-number').click(function(e){
                 e.preventDefault();
 
-                const type = $(this).data('type');
-                const input = $("input[name='" + $(this).data('field') + "']");
-                let currentVal = parseInt(input.val());
+                // const type = $(this).data('type');
+                // const input = $("input[name='" + $(this).data('field') + "']");
+                // let currentVal = parseInt(input.val());
+                //
+                // if (!isNaN(currentVal)) {
+                //     if (type === 'minus' && currentVal > 1) {
+                //         input.val(currentVal - 1).change();
+                //     } else if (type === 'plus') {
+                //         input.val(currentVal + 1).change();
+                //     }
+                // }
 
-                if (!isNaN(currentVal)) {
-                    if (type === 'minus' && currentVal > 1) {
-                        input.val(currentVal - 1).change();
-                    } else if (type === 'plus') {
-                        input.val(currentVal + 1).change();
-                    }
-                }
+
+
             });
 
             $('.input-number').on('input change', function(){

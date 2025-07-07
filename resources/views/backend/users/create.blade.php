@@ -1,3 +1,4 @@
+@php use App\User; @endphp
 @extends('backend.layouts.master')
 
 @section('main-content')
@@ -46,8 +47,9 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        @php 
-        $roles=DB::table('users')->select('role')->get();
+        @php
+        //$roles=DB::table('users')->select('role')->get();
+       $roles = User::select('role')->get();
         @endphp
         <div class="form-group">
             <label for="role" class="col-form-label">Role</label>

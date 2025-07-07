@@ -18,6 +18,7 @@ class NotificationController extends Controller
     }
     public function delete($id){
         $notification=Notification::find($id);
+        
         if($notification){
             $status=$notification->delete();
             if($status){

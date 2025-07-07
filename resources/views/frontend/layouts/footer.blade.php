@@ -1,3 +1,4 @@
+@php use App\Models\Settings; @endphp
 
 	<!-- Start Footer Area -->
 	<footer class="footer">
@@ -9,10 +10,13 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="{{asset('backend/img/avatar.png')}}" alt="#"></a>
+								<a href="{{route('home')}}">
+                                    <img src="{{asset('backend/img/avatar.png')}}" alt="#">
+                                </a>
 							</div>
 							@php
-								$settings=DB::table('settings')->get();
+								//$settings=DB::table('settings')->get();
+                            	$settings=Settings::get();
 							@endphp
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
 							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
@@ -74,21 +78,21 @@
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
-								<p>© {{date('Y')}} Developed By Prajwal Rai  -  All Rights Reserved.</p>
+								<p>© {{date('Y')}} Developed By Dhruvi Shah  -  All Rights Reserved.</p>
 							</div>
 						</div>
-						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="{{asset('backend/img/payments.png')}}" alt="#">
-							</div>
-						</div>
+{{--						<div class="col-lg-6 col-12">--}}
+{{--							<div class="right">--}}
+{{--								<img src="{{asset('backend/img/payments.png')}}" alt="#">--}}
+{{--							</div>--}}
+{{--						</div>--}}
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
 	<!-- /End Footer Area -->
- 
+
 	<!-- Jquery -->
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
@@ -125,7 +129,7 @@
 	<!-- Active JS -->
 	<script src="{{asset('frontend/js/active.js')}}"></script>
 
-	
+
 	@stack('scripts')
 	<script>
 		setTimeout(function(){
