@@ -1,366 +1,400 @@
 @extends('backend.layouts.master')
 @section('title','Ecommerce Laravel || DASHBOARD')
 @section('main-content')
-<div class="container-fluid">
-    @include('backend.layouts.notification')
-    <!-- Page Heading -->
-    <!-- Visit 'codeastro' for more projects -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    </div>
-
-    <!-- Content Row -->
-    <div class="row">
-
-      <!-- Order -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Order</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countActiveOrder()}}</div>
+ <!--begin::App Main-->
+      <main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+              </div>
+            </div>
+            <!--end::Row-->
+          </div>
+          <!--end::Container-->
+        </div>
+        <div class="app-content">
+          <!--begin::Container-->
+          <div class="container-fluid">
+            <!-- Info boxes -->
+            <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-primary shadow-sm">
+                    <i class="bi bi-bag-check-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Total Order</span>
+                    <span class="info-box-number">
+                      {{\App\Models\Order::countActiveOrder()}}
+                    </span>
                   </div>
-                  
+                  <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
               </div>
-              <div class="col-auto">
-                <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-           <!-- Products -->
-           <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Products</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{\App\Models\Product::countActiveProduct()}}</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-cubes fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Category -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Category</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{\App\Models\Category::countActiveCategory()}}</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-sitemap fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--Posts-->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Blog</div>
-                <div class="h5 mb-0 font-weight-bold text-gray-800">{{\App\Models\Post::countActivePost()}}</div>
-              </div>
-              <div class="col-auto">
-                <i class="fas fa-newspaper fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <!-- Order -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">New Order</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countNewReceivedOrder()}}</div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-danger shadow-sm">
+                    <i class="bi bi-tag-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Products</span>
+                    <span class="info-box-number">{{\App\Models\Product::countActiveProduct()}}</span>
                   </div>
-                  
+                  <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
               </div>
-              <div class="col-auto">
-                <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Order -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Processing Order</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countProcessingOrder()}}</div>
+              <!-- /.col -->
+              <!-- fix for small devices only -->
+              <!-- <div class="clearfix hidden-md-up"></div> -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-success shadow-sm">
+                    <i class="bi bi-bookmark-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Category</span>
+                    <span class="info-box-number">{{\App\Models\Category::countActiveCategory()}}</span>
                   </div>
-                  
+                  <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
               </div>
-              <div class="col-auto">
-                <i class="fas fa-spinner fa-2x text-gray-300"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Order -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Delivered Order</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countDeliveredOrder()}}</div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-warning shadow-sm">
+                    <i class="bi bi-people-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Blog</span>
+                    <span class="info-box-number">{{\App\Models\Post::countActivePost()}}</span>
                   </div>
-                  
+                  <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
               </div>
-              <div class="col-auto">
-                <i class="fas fa-check fa-2x text-gray-300"></i>
-              </div>
+              <!-- /.col -->
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- Order -->
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-          <div class="card-body">
-            <div class="row no-gutters align-items-center">
-              <div class="col mr-2">
-                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Cancelled Order</div>
-                <div class="row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{\App\Models\Order::countCancelledOrder()}}</div>
+             <div class="row">
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-primary shadow-sm">
+                    <i class="bi bi-bag-plus-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">New Order</span>
+                    <span class="info-box-number">
+                      {{\App\Models\Order::countNewReceivedOrder()}}
+                    </span>
                   </div>
-                  
+                  <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
               </div>
-              <div class="col-auto">
-                <i class="fas fa-times fa-2x text-gray-300"></i>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-danger shadow-sm">
+                    <i class="bi bi-gear-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Processing Order</span>
+                    <span class="info-box-number">{{\App\Models\Order::countProcessingOrder()}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
               </div>
+              <!-- /.col -->
+              <!-- fix for small devices only -->
+              <!-- <div class="clearfix hidden-md-up"></div> -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-success shadow-sm">
+                    <i class="bi bi-cart-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Delivered Order</span>
+                    <span class="info-box-number">{{\App\Models\Order::countDeliveredOrder()}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                  <span class="info-box-icon text-bg-warning shadow-sm">
+                    <i class="bi bi-x-circle-fill"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Cancelled Order</span>
+                    <span class="info-box-number">{{\App\Models\Order::countCancelledOrder()}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-
-      <!-- Area Chart -->
-      <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-            
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-            <div class="chart-area">
-              <canvas id="myAreaChart"></canvas>
+            <!-- /.row -->
+            <!--begin::Row-->
+            <div class="row">
+              <!-- Start col -->
+              <div class="col-md-8">
+               
+                <!--end::Row-->
+                <!--begin::Latest Order Widget-->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Latest Orders</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table m-0">
+                        <thead>
+                          <tr>
+                            <th>Order ID</th>
+                            <th>Item</th>
+                            <th>Status</th>
+                            <th>Popularity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR9842</a
+                              >
+                            </td>
+                            <td>Call of Duty IV</td>
+                            <td><span class="badge text-bg-success"> Shipped </span></td>
+                            <td><div id="table-sparkline-1"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR1848</a
+                              >
+                            </td>
+                            <td>Samsung Smart TV</td>
+                            <td><span class="badge text-bg-warning">Pending</span></td>
+                            <td><div id="table-sparkline-2"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR7429</a
+                              >
+                            </td>
+                            <td>iPhone 6 Plus</td>
+                            <td><span class="badge text-bg-danger"> Delivered </span></td>
+                            <td><div id="table-sparkline-3"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR7429</a
+                              >
+                            </td>
+                            <td>Samsung Smart TV</td>
+                            <td><span class="badge text-bg-info">Processing</span></td>
+                            <td><div id="table-sparkline-4"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR1848</a
+                              >
+                            </td>
+                            <td>Samsung Smart TV</td>
+                            <td><span class="badge text-bg-warning">Pending</span></td>
+                            <td><div id="table-sparkline-5"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR7429</a
+                              >
+                            </td>
+                            <td>iPhone 6 Plus</td>
+                            <td><span class="badge text-bg-danger"> Delivered </span></td>
+                            <td><div id="table-sparkline-6"></div></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                href="pages/examples/invoice.html"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                >OR9842</a
+                              >
+                            </td>
+                            <td>Call of Duty IV</td>
+                            <td><span class="badge text-bg-success">Shipped</span></td>
+                            <td><div id="table-sparkline-7"></div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer clearfix">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-primary float-start">
+                      Place New Order
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-end">
+                      View All Orders
+                    </a>
+                  </div>
+                  <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-4">
+           
+               
+                <!-- PRODUCT LIST -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Recently Added Products</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <div class="px-2">
+                      <div class="d-flex border-top py-2 px-1">
+                        <div class="col-2">
+                          <img
+                            src="./assets/img/default-150x150.png"
+                            alt="Product Image"
+                            class="img-size-50"
+                          />
+                        </div>
+                        <div class="col-10">
+                          <a href="javascript:void(0)" class="fw-bold">
+                            Samsung TV
+                            <span class="badge text-bg-warning float-end"> $1800 </span>
+                          </a>
+                          <div class="text-truncate">Samsung 32" 1080p 60Hz LED Smart HDTV.</div>
+                        </div>
+                      </div>
+                      <!-- /.item -->
+                      <div class="d-flex border-top py-2 px-1">
+                        <div class="col-2">
+                          <img
+                            src="./assets/img/default-150x150.png"
+                            alt="Product Image"
+                            class="img-size-50"
+                          />
+                        </div>
+                        <div class="col-10">
+                          <a href="javascript:void(0)" class="fw-bold">
+                            Bicycle
+                            <span class="badge text-bg-info float-end"> $700 </span>
+                          </a>
+                          <div class="text-truncate">
+                            26" Mongoose Dolomite Men's 7-speed, Navy Blue.
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.item -->
+                      <div class="d-flex border-top py-2 px-1">
+                        <div class="col-2">
+                          <img
+                            src="./assets/img/default-150x150.png"
+                            alt="Product Image"
+                            class="img-size-50"
+                          />
+                        </div>
+                        <div class="col-10">
+                          <a href="javascript:void(0)" class="fw-bold">
+                            Xbox One
+                            <span class="badge text-bg-danger float-end"> $350 </span>
+                          </a>
+                          <div class="text-truncate">
+                            Xbox One Console Bundle with Halo Master Chief Collection.
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.item -->
+                      <div class="d-flex border-top py-2 px-1">
+                        <div class="col-2">
+                          <img
+                            src="./assets/img/default-150x150.png"
+                            alt="Product Image"
+                            class="img-size-50"
+                          />
+                        </div>
+                        <div class="col-10">
+                          <a href="javascript:void(0)" class="fw-bold">
+                            PlayStation 4
+                            <span class="badge text-bg-success float-end"> $399 </span>
+                          </a>
+                          <div class="text-truncate">PlayStation 4 500GB Console (PS4)</div>
+                        </div>
+                      </div>
+                      <!-- /.item -->
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase"> View All Products </a>
+                  </div>
+                  <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
             </div>
+            <!--end::Row-->
           </div>
+          <!--end::Container-->
         </div>
-      </div>
-    
-      <!-- Pie Chart -->
-      <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body" style="overflow:hidden">
-            <div id="pie_chart" style="width:350px; height:320px;">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Content Row -->
-    <!-- Visit 'codeastro' for more projects -->
-  </div>
-@endsection
+        <!--end::App Content-->
+      </main>
 
-@push('scripts')
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-{{-- pie chart --}}
-<script type="text/javascript">
-  var analytics = <?php echo $users; ?>
-
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart()
-  {
-      var data = google.visualization.arrayToDataTable(analytics);
-      var options = {
-          title : 'Last 7 Days registered user'
-      };
-      var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
-      chart.draw(data, options);
-  }
-</script>
-  {{-- line chart --}}
-  <script type="text/javascript">
-    const url = "{{route('product.order.income')}}";
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
-
-    function number_format(number, decimals, dec_point, thousands_sep) {
-      // *     example: number_format(1234.56, 2, ',', ' ');
-      // *     return: '1 234,56'
-      number = (number + '').replace(',', '').replace(' ', '');
-      var n = !isFinite(+number) ? 0 : +number,
-        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-        s = '',
-        toFixedFix = function(n, prec) {
-          var k = Math.pow(10, prec);
-          return '' + Math.round(n * k) / k;
-        };
-      // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-      s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-      if (s[0].length > 3) {
-        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-      }
-      if ((s[1] || '').length < prec) {
-        s[1] = s[1] || '';
-        s[1] += new Array(prec - s[1].length + 1).join('0');
-      }
-      return s.join(dec);
-    }
-
-      // Area Chart Example
-      var ctx = document.getElementById("myAreaChart");
-
-        axios.get(url)
-              .then(function (response) {
-                const data_keys = Object.keys(response.data);
-                const data_values = Object.values(response.data);
-                var myLineChart = new Chart(ctx, {
-                  type: 'line',
-                  data: {
-                    labels: data_keys, // ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                      label: "Earnings",
-                      lineTension: 0.3,
-                      backgroundColor: "rgba(78, 115, 223, 0.05)",
-                      borderColor: "rgba(78, 115, 223, 1)",
-                      pointRadius: 3,
-                      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                      pointBorderColor: "rgba(78, 115, 223, 1)",
-                      pointHoverRadius: 3,
-                      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                      pointHitRadius: 10,
-                      pointBorderWidth: 2,
-                      data:data_values,// [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-                    }],
-                  },
-                  options: {
-                    maintainAspectRatio: false,
-                    layout: {
-                      padding: {
-                        left: 10,
-                        right: 25,
-                        top: 25,
-                        bottom: 0
-                      }
-                    },
-                    scales: {
-                      xAxes: [{
-                        time: {
-                          unit: 'date'
-                        },
-                        gridLines: {
-                          display: false,
-                          drawBorder: false
-                        },
-                        ticks: {
-                          maxTicksLimit: 7
-                        }
-                      }],
-                      yAxes: [{
-                        ticks: {
-                          maxTicksLimit: 5,
-                          padding: 10,
-                          // Include a dollar sign in the ticks
-                          callback: function(value, index, values) {
-                            return '$' + number_format(value);
-                          }
-                        },
-                        gridLines: {
-                          color: "rgb(234, 236, 244)",
-                          zeroLineColor: "rgb(234, 236, 244)",
-                          drawBorder: false,
-                          borderDash: [2],
-                          zeroLineBorderDash: [2]
-                        }
-                      }],
-                    },
-                    legend: {
-                      display: false
-                    },
-                    tooltips: {
-                      backgroundColor: "rgb(255,255,255)",
-                      bodyFontColor: "#858796",
-                      titleMarginBottom: 10,
-                      titleFontColor: '#6e707e',
-                      titleFontSize: 14,
-                      borderColor: '#dddfeb',
-                      borderWidth: 1,
-                      xPadding: 15,
-                      yPadding: 15,
-                      displayColors: false,
-                      intersect: false,
-                      mode: 'index',
-                      caretPadding: 10,
-                      callbacks: {
-                        label: function(tooltipItem, chart) {
-                          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                        }
-                      }
-                    }
-                  }
-                });
-              })
-              .catch(function (error) {
-              //   vm.answer = 'Error! Could not reach the API. ' + error
-              console.log(error)
-              });
-
-  </script>
-@endpush
+      @endsection
