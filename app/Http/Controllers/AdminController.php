@@ -10,6 +10,7 @@ use Hash;
 use Carbon\Carbon;
 use Spatie\Activitylog\Models\Activity;
 use MongoDB\BSON\UTCDateTime;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,7 @@ class AdminController extends Controller
     // //  return $data;
     //  return view('backend.index')->with('users', json_encode($array));
     // }
-   
+
 
 public function index()
 {
@@ -58,7 +59,7 @@ public function index()
 
     $array[] = ['Name', 'Number'];
     foreach ($data as $item) {
-        $dayName = $dayNames[$item->_id->day_name];
+        $dayName = $dayNames[$item->_id['day_name']];
         $array[] = [$dayName, $item->count];
     }
 
@@ -103,6 +104,8 @@ public function index()
             'phone'=>'required|string',
         ]);
         $data=$request->all();
+        $data['logo'] = Str::replace('http://localhost', '', $data['logo']);
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         // return $data;
         $settings=Settings::first();
         // return $settings;
@@ -126,9 +129,9 @@ public function index()
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('admin')->with('success','Password successfully changed');
     }
 

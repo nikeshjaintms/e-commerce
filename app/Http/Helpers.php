@@ -150,7 +150,7 @@ class Helper{
 
         return Cart::where('user_id', $user_id)
             ->whereNull('order_id')
-            ->sum('price');
+            ->sum('amount');
     }
 
     // Wishlist Count

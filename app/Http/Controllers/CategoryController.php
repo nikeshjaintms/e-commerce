@@ -44,7 +44,6 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->all();
         $this->validate($request,[
             'title'=>'required|string|required',
             'summary'=>'string|nullable',
@@ -54,6 +53,7 @@ class CategoryController extends Controller
             'parent_id'=>'nullable|exists:categories,id',
         ]);
         $data= $request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $slug=Str::slug($request->title);
         $count=Category::where('slug',$slug)->count();
         if($count>0){
@@ -119,6 +119,7 @@ class CategoryController extends Controller
             'parent_id'=>'nullable|exists:categories,id',
         ]);
         $data= $request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $data['is_parent']=$request->input('is_parent',0);
         // return $data;
         $status=$category->fill($data)->save();

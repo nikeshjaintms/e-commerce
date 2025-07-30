@@ -63,6 +63,7 @@ class ProductController extends Controller
         ]);
 
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $slug=Str::slug($request->title);
         $count=Product::where('slug',$slug)->count();
         if($count>0){
@@ -111,7 +112,7 @@ class ProductController extends Controller
     {
         $brand=Brand::get();
         $product=Product::findOrFail($id);
-        $category=Category::where('is_parent',1)->get();
+        $category=Category::where('is_parent',"1")->get();
         $items=Product::where('id',$id)->get();
         // return $items;
         return view('backend.product.edit')->with('product',$product)
@@ -147,6 +148,7 @@ class ProductController extends Controller
         ]);
 
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $data['is_featured']=$request->input('is_featured',0);
         $size=$request->input('size');
         if($size){

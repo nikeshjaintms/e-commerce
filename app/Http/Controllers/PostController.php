@@ -58,6 +58,7 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
 
         $slug=Str::slug($request->title);
         $count=Post::where('slug',$slug)->count();
@@ -135,6 +136,7 @@ class PostController extends Controller
         ]);
 
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $tags=$request->input('tags');
         // return $tags;
         if($tags){

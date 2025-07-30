@@ -344,7 +344,8 @@
                                             </div>
                                         </td>
                                         <td class="total-amount cart_single_price" data-title="Total">
-                                            <span class="money">${{ number_format($cart['amount'] * $cart['quantity'], 2) }}</span>
+                                            {{-- @dd(number_format($cart['amount'] * $cart['quantity'], 2)) --}}
+                                            <span class="money">${{ number_format($cart['price'] * $cart['quantity'], 2) }}</span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
                                     </tr>

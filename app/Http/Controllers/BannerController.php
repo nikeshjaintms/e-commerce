@@ -44,6 +44,7 @@ class BannerController extends Controller
             'status'=>'required|in:active,inactive',
         ]);
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $slug=Str::slug($request->title);
         $count=Banner::where('slug',$slug)->count();
         if($count>0){
@@ -101,6 +102,7 @@ class BannerController extends Controller
             'status'=>'required|in:active,inactive',
         ]);
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         // $slug=Str::slug($request->title);
         // $count=Banner::where('slug',$slug)->count();
         // if($count>0){

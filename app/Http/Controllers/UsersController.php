@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -58,6 +60,7 @@ class UsersController extends Controller
         ]);
         // dd($request->all());
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         $data['password']=Hash::make($request->password);
         // dd($data);
         $status=User::create($data);
@@ -121,6 +124,7 @@ class UsersController extends Controller
         ]);
         // dd($request->all());
         $data=$request->all();
+        $data['photo'] = Str::replace('http://localhost', '', $data['photo']);
         // dd($data);
 
         $status=$user->fill($data)->save();
