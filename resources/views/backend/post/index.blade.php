@@ -82,7 +82,6 @@
         @endif
       </div>
     </div>
-    <!-- Visit 'codeastro' for more projects -->
 </div>
 @endsection
 

@@ -1,65 +1,200 @@
+<script
+      src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="{{asset('backend/js/adminlte.js')}}"></script>
+    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script>
+      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+      const Default = {
+        scrollbarTheme: 'os-theme-light',
+        scrollbarAutoHide: 'leave',
+        scrollbarClickScroll: true,
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+        if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
+          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+            scrollbars: {
+              theme: Default.scrollbarTheme,
+              autoHide: Default.scrollbarAutoHide,
+              clickScroll: Default.scrollbarClickScroll,
+            },
+          });
+        }
+      });
+    </script>
+    <!--end::OverlayScrollbars Configure-->
+    <!-- OPTIONAL SCRIPTS -->
+    <!-- apexcharts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+      integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
+      crossorigin="anonymous"
+    ></script>
+      @stack('scripts')
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>&copy; {{date('Y')}} Developed By Prajwal R.</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+    <script>
+      // NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
+      // IT'S ALL JUST JUNK FOR DEMO
+      // ++++++++++++++++++++++++++++++++++++++++++
 
-    </div>
-    <!-- End of Content Wrapper -->
+      /* apexcharts
+       * -------
+       * Here we will create a few charts using apexcharts
+       */
 
-  </div>
-  <!-- End of Page Wrapper -->
+      //-----------------------
+      // - MONTHLY SALES CHART -
+      //-----------------------
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+      const sales_chart_options = {
+        series: [
+          {
+            name: 'Digital Goods',
+            data: [28, 48, 40, 19, 86, 27, 90],
+          },
+          {
+            name: 'Electronics',
+            data: [65, 59, 80, 81, 56, 55, 40],
+          },
+        ],
+        chart: {
+          height: 180,
+          type: 'area',
+          toolbar: {
+            show: false,
+          },
+        },
+        legend: {
+          show: false,
+        },
+        colors: ['#0d6efd', '#20c997'],
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: 'smooth',
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: [
+            '2023-01-01',
+            '2023-02-01',
+            '2023-03-01',
+            '2023-04-01',
+            '2023-05-01',
+            '2023-06-01',
+            '2023-07-01',
+          ],
+        },
+        tooltip: {
+          x: {
+            format: 'MMMM yyyy',
+          },
+        },
+      };
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+      const sales_chart = new ApexCharts(
+        document.querySelector('#sales-chart'),
+        sales_chart_options,
+      );
+      sales_chart.render();
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+      //---------------------------
+      // - END MONTHLY SALES CHART -
+      //---------------------------
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+      function createSparklineChart(selector, data) {
+        const options = {
+          series: [{ data }],
+          chart: {
+            type: 'line',
+            width: 150,
+            height: 30,
+            sparkline: {
+              enabled: true,
+            },
+          },
+          colors: ['var(--bs-primary)'],
+          stroke: {
+            width: 2,
+          },
+          tooltip: {
+            fixed: {
+              enabled: false,
+            },
+            x: {
+              show: false,
+            },
+            y: {
+              title: {
+                formatter() {
+                  return '';
+                },
+              },
+            },
+            marker: {
+              show: false,
+            },
+          },
+        };
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{asset('backend/js/sb-admin-2.min.js')}}"></script>
+        const chart = new ApexCharts(document.querySelector(selector), options);
+        chart.render();
+      }
 
-  <!-- Page level plugins -->
-  <script src="{{asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
+      const table_sparkline_1_data = [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54];
+      const table_sparkline_2_data = [12, 56, 21, 39, 73, 45, 64, 52, 36, 59, 44];
+      const table_sparkline_3_data = [15, 46, 21, 59, 33, 15, 34, 42, 56, 19, 64];
+      const table_sparkline_4_data = [30, 56, 31, 69, 43, 35, 24, 32, 46, 29, 64];
+      const table_sparkline_5_data = [20, 76, 51, 79, 53, 35, 54, 22, 36, 49, 64];
+      const table_sparkline_6_data = [5, 36, 11, 69, 23, 15, 14, 42, 26, 19, 44];
+      const table_sparkline_7_data = [12, 56, 21, 39, 73, 45, 64, 52, 36, 59, 74];
 
-  <!-- Page level custom scripts -->
-  {{-- <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script> --}}
-  {{-- <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script> --}}
+      createSparklineChart('#table-sparkline-1', table_sparkline_1_data);
+      createSparklineChart('#table-sparkline-2', table_sparkline_2_data);
+      createSparklineChart('#table-sparkline-3', table_sparkline_3_data);
+      createSparklineChart('#table-sparkline-4', table_sparkline_4_data);
+      createSparklineChart('#table-sparkline-5', table_sparkline_5_data);
+      createSparklineChart('#table-sparkline-6', table_sparkline_6_data);
+      createSparklineChart('#table-sparkline-7', table_sparkline_7_data);
 
-  @stack('scripts')
+      //-------------
+      // - PIE CHART -
+      //-------------
 
-  <script>
-    setTimeout(function(){
-      $('.alert').slideUp();
-    },4000);
-  </script>
+      const pie_chart_options = {
+        series: [700, 500, 400, 600, 300, 100],
+        chart: {
+          type: 'donut',
+        },
+        labels: ['Chrome', 'Edge', 'FireFox', 'Safari', 'Opera', 'IE'],
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ['#0d6efd', '#20c997', '#ffc107', '#d63384', '#6f42c1', '#adb5bd'],
+      };
+
+      const pie_chart = new ApexCharts(document.querySelector('#pie-chart'), pie_chart_options);
+      pie_chart.render();
+
+      //-----------------
+      // - END PIE CHART -
+      //-----------------
+    </script>
+    <!--end::Script-->
+  </body>
+  <!--end::Body-->
+</html>
